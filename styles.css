@@ -74,7 +74,7 @@ html.js.reveal-on [data-reveal].is-in [data-in]{opacity:1; transform:none}
 .hero-card .stripe{position:absolute; top:0; left:0; right:0}
 .hero-card-body{padding-top:34px}
 .hero h1{font-size:clamp(44px,6.4vw,92px); max-width:18ch; margin-bottom:22px}
-.hero-sub{max-width:44ch; font-size:clamp(16px,1.4vw,19px); color:var(--paper); margin-bottom:26px}
+.hero-sub{max-width:44ch; font-size:clamp(18px,1.5vw,20px); color:var(--paper); margin-bottom:26px}
 .hero-links{display:flex; gap:26px; border-top:2px solid color-mix(in srgb, var(--paper) 22%, transparent); padding-top:16px}
 .hero-links a{font-size:14px; font-weight:600; text-decoration:none; opacity:.85}
 .hero-links a:hover{opacity:1; text-decoration:underline}
@@ -303,3 +303,9 @@ html.js .hero [data-in]{opacity:0; animation:hero-rise .9s cubic-bezier(.2,.7,.2
   html.js.reveal-on [data-reveal] [data-in]{transition:none; opacity:1; transform:none}
   .hero-photo .xfade{transition:none}
 }
+
+/* flat-ground cut at rest (tablet, phone, reduced motion, no CDN): the A band would be an empty
+   colour field, so B opens the section directly */
+.scene[data-scene="raster-cut"]:not(.is-live) .rc-a{display:none}
+.scene[data-scene="raster-cut"]:not(.is-live) .rc-b{margin-top:0}
+.scene[data-scene="raster-cut"]:not(.is-live) .rc-b{min-height:0}

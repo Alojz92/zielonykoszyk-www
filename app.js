@@ -85,9 +85,22 @@
     });
   }
 
-  // scroll scenes (GSAP stage); without the CDN they rest in their finished composition
-  if (window.Stage) {
-    Stage.smooth();
+  // Scroll scenes (GSAP stage) run live on desktop; without the CDN, on tablet and phone, or with
+  // reduced motion they rest in their finished composition. The page always scrolls natively.
+  if (window.Stage && window.matchMedia('(min-width: 1100px)').matches) {
     Stage.init();
+    // While a raster cut has not opened, its incoming copy is fully clipped away; keep it out of
+    // hit-testing the same way (the outgoing copy is the one on screen then).
+    var rc = document.querySelector('[data-scene="raster-cut"]');
+    if (rc) {
+      var rcB = rc.querySelector('.rc-b');
+      var rcCopy = rc.querySelector('.rc-b .rc-copy');
+      var syncCut = function () {
+        var open = rc.classList.contains('is-live') && !rc.hasAttribute('data-rc-covered');
+        rcCopy.style.visibility = (open && /^inset\(100%/.test(getComputedStyle(rcB).clipPath)) ? 'hidden' : '';
+        requestAnimationFrame(syncCut);
+      };
+      requestAnimationFrame(syncCut);
+    }
   }
 })();
